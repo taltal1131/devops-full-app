@@ -74,7 +74,6 @@ Edit
 git clone https://github.com/taltal1131/devops-full-app.git
 cd devops-full-app
 docker-compose up --build
-
 Visit: http://localhost:8080 → Frontend
 
 Visit: http://localhost:3000 → Backend API
@@ -84,4 +83,3 @@ Visit: http://localhost:4000 → Logger Microservice
 👨‍💻 Author
 Tal Amsalem
 DevOps Enthusiast | Always Learning | Building Production-Ready Pipelines 🚀
-
