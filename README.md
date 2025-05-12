@@ -1,6 +1,6 @@
 # 🐳 DevOps Fullstack Demo
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green?logo=netlify)](https://devops-app-tal.netlify.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?logo=netlify)](https://devops-app-tal.netlify.app/)
 [![Docker Hub](https://img.shields.io/badge/DockerHub-Images-blue?logo=docker)](https://hub.docker.com/u/taltal1131)
 
 A complete **DevOps-ready fullstack application** that demonstrates containerized microservices, CI/CD automation with GitHub Actions, and live deployment using Docker Compose & Netlify.
