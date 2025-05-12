@@ -16,10 +16,6 @@ devops-full-app/
 ├── docker-compose.yml
 └── .github/workflows/docker-ci.yml
 
-yaml
-Copy
-Edit
-
 ---
 
 ## 🗺️ Architecture Diagram
@@ -83,5 +79,3 @@ Visit: http://localhost:4000 → Logger Microservice
 👨‍💻 Author
 Tal Amsalem
 DevOps Enthusiast | Always Learning | Building Production-Ready Pipelines 🚀
-```markdown
-[![Docker Hub](https://img.shields.io/badge/DockerHub-View-blue?logo=docker)](https://hub.docker.com/u/taltal1131)
