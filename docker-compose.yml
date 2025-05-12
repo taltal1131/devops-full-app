@@ -1,0 +1,18 @@
+version: '3'
+services:
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./frontend/index.html:/usr/share/nginx/html/index.html
+    ports:
+      - "8080:80"
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+
+  logger:
+    build: ./logger
+    ports:
+      - "4000:4000"
