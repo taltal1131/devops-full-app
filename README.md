@@ -1,5 +1,5 @@
 # 🐳 DevOps Fullstack Demo
-
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?logo=netlify)](https://taltal-devops-demo.netlify.app)
 A complete **DevOps-ready fullstack application** that demonstrates containerized microservices, CI/CD automation, and local orchestration using Docker Compose.
 
 ---
