@@ -19,6 +19,10 @@ Edit
 
 ---
 
+## 🗺️ Architecture Diagram
+
+![Architecture](architecture.png)
+
 ## 🚀 Features
 
 - ✅ Dockerized microservices (`frontend`, `backend`, `logger`)
