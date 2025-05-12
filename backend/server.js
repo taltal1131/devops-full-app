@@ -1,8 +1,12 @@
+const express = require('express');
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+
 app.get('/', (req, res) => {
-  res.json({
-    status: 'OK',
-    message: 'Backend service is up and running. Ready to receive API requests.',
-    service: 'user-service',
-    version: '1.0.0'
-  });
+  res.json({ message: 'Backend is running!' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
