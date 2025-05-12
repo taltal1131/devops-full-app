@@ -54,4 +54,4 @@ Edit
 ```bash
 git clone https://github.com/YOUR_USERNAME/devops-full-app.git
 cd devops-full-app
-docker-compose up --build
+docker-compose up --build 
