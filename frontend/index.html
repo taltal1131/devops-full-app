@@ -30,7 +30,7 @@
   <div id="backend-response">Loading backend response...</div>
 
   <script>
-    fetch('/api/hello')
+    fetch('https://devopsbackend-rgdg.onrender.com/api/hello')
       .then(res => {
         if (!res.ok) throw new Error('Backend unreachable');
         return res.json();
