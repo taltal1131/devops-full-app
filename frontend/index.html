@@ -31,15 +31,14 @@
 
   <script>
     fetch('https://devopsbackend-rgdg.onrender.com/api/hello')
-      .then(res => {
-        if (!res.ok) throw new Error('Backend unreachable');
-        return res.json();
-      })
-      .then(data => {
+      .then(async res => {
+        if (!res.ok) throw new Error(`Backend unreachable: ${res.status}`);
+        const data = await res.json();
         document.getElementById('backend-response').textContent = `Backend Response: ${data.message}`;
       })
       .catch(err => {
-        document.getElementById('backend-response').textContent = `Backend Response: Error: Could not reach backend`;
+        console.error("🔥 Error contacting backend:", err);
+        document.getElementById('backend-response').textContent = `Backend Response: Error: ${err.message}`;
       });
   </script>
 </body>
