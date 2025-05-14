@@ -14,8 +14,8 @@
         document.getElementById('backend-response').textContent = "Backend Response: " + data.message;
       })
       .catch(err => {
+        console.error("Fetch error:", err);
         document.getElementById('backend-response').textContent = "Backend Error: " + err.message;
-        console.error("Backend fetch failed:", err);
       });
   </script>
 </body>
