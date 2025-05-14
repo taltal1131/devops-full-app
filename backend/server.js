@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-  origin: 'https://devops-frontend-shx7.onrender.com'
+  origin: 'https://devops-frontend-shx7.onrender.com'  // כתובת הפרונטאנד שלך
 }));
 
 app.get('/api/hello', (req, res) => {
