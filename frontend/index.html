@@ -2,43 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DevOps Fullstack Demo - Working ✅</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #f4f4f4;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      color: #333;
-    }
-    #backend-response {
-      margin-top: 20px;
-      font-weight: bold;
-      color: green;
-    }
-  </style>
+  <title>DevOps Frontend</title>
 </head>
 <body>
-  <h1>Welcome to the DevOps Fullstack Demo</h1>
-  <p>This application demonstrates CI/CD, container orchestration with Docker Compose, and microservices integration.</p>
-
-  <div id="backend-response">Loading backend response...</div>
-
+  <h1>Welcome to the DevOps Frontend</h1>
+  <div id="backend-response">Waiting for backend...</div>
   <script>
     fetch('https://devopsbackend-rgdg.onrender.com/api/hello')
-      .then(async res => {
-        if (!res.ok) throw new Error(`Backend unreachable: ${res.status}`);
-        const data = await res.json();
-        document.getElementById('backend-response').textContent = `Backend Response: ${data.message}`;
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('backend-response').textContent = "Backend Response: " + data.message;
       })
       .catch(err => {
-        console.error("🔥 Error contacting backend:", err);
-        document.getElementById('backend-response').textContent = `Backend Response: Error: ${err.message}`;
+        document.getElementById('backend-response').textContent = "Backend Error: " + err.message;
+        console.error("Backend fetch failed:", err);
       });
   </script>
 </body>
