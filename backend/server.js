@@ -7,9 +7,11 @@ const app = express();
 
 app.use(cors({
   origin: 'https://devops-frontend-shx7.onrender.com',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  credentials: true, // ✅ מוודא שכל הבקשות כולל cookies מאושרות
 }));
+
+// ✅ מוסיף מענה ל־OPTIONS אם יש צורך (preflight)
+app.options('*', cors());
 
 app.use(express.json());
 
