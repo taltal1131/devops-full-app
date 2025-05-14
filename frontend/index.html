@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>DevOps Fullstack App</title>
-  </head>
-  <body>
-    <h1>Welcome to the DevOps Fullstack Demo</h1>
-    <p>This application demonstrates CI/CD, container orchestration with Docker Compose, and microservices integration.</p>
+<head>
+  <meta charset="UTF-8">
+  <title>DevOps Fullstack Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    #backend-response {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the DevOps Fullstack Demo</h1>
+  <p>This application demonstrates CI/CD, container orchestration with Docker Compose, and microservices integration.</p>
 
-    <h2>Backend Response:</h2>
-    <div id="backend-response">Loading...</div>
+  <div id="backend-response">Loading backend response...</div>
 
-    <script>
-      fetch('/api/hello')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('backend-response').innerText = data.message;
-        })
-        .catch(error => {
-          document.getElementById('backend-response').innerText = 'Error: Could not reach backend';
-          console.error('Error fetching backend data:', error);
-        });
-    </script>
-  </body>
+  <script>
+    fetch('/api/hello')
+      .then(res => {
+        if (!res.ok) throw new Error('Backend unreachable');
+        return res.json();
+      })
+      .then(data => {
+        document.getElementById('backend-response').textContent = `Backend Response: ${data.message}`;
+      })
+      .catch(err => {
+        document.getElementById('backend-response').textContent = `Backend Response: Error: Could not reach backend`;
+      });
+  </script>
+</body>
 </html>
