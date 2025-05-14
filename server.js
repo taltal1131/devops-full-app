@@ -17,6 +17,11 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+// ✅ Hello route 
+app.get('/api/hello', (req, res) => {
+  res.json({ message: 'Hello from backend API!' });
+});
+
 // 🧪 Test route
 app.get('/', (req, res) => {
   res.json({ message: 'Backend is running!' });
