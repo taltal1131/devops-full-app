@@ -20,17 +20,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build backend image
-        run: |
-          docker build -t taltal1131/backend ./backend
-
-      - name: Build frontend image
-        run: |
-          docker build -t taltal1131/my-nginx-image ./frontend
+        run: docker build -t taltal1131/backend ./backend
 
       - name: Push backend image
-        run: |
-          docker push taltal1131/backend
+        run: docker push taltal1131/backend
+
+      - name: Build frontend image
+        run: docker build -t taltal1131/my-nginx-image ./frontend
 
       - name: Push frontend image
-        run: |
-          docker push taltal1131/my-nginx-image
+        run: docker push taltal1131/my-nginx-image
