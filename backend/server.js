@@ -1,16 +1,37 @@
 const express = require('express');
-const cors = require('cors');
+const mongoose = require('mongoose');
+require('dotenv').config();
+
 const app = express();
-const port = 3000;
+app.use(express.json());
 
-app.use(cors({
-  origin: 'https://devops-frontend-shx7.onrender.com'  // כתובת הפרונטאנד שלך
-}));
+const PORT = process.env.PORT || 3000;
 
+// ✅ MongoDB connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch(err => console.error('❌ MongoDB error:', err));
+
+// ✅ Healthcheck route for Render
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+// ✅ Hello route 
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from backend API!' });
 });
 
-app.listen(port, () => {
-  console.log(`Backend listening on port ${port}`);
+// 🧪 Test route
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend is running!' });
+});
+
+// 📦 Main API routes
+const taskRoutes = require('./routes/tasks');
+app.use('/tasks', taskRoutes);
+
+// ▶️ Start server
+app.listen(PORT, () => {
+  console.log(`✅ Server is listening on port ${PORT}`);
 });
