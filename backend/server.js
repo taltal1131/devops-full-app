@@ -3,7 +3,6 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// ✅ Enable CORS for the frontend hosted on Render
 app.use(cors({
   origin: 'https://devops-frontend-shx7.onrender.com'
 }));
