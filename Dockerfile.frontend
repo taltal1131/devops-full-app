@@ -1,3 +1,7 @@
 FROM nginx:alpine
+
+# קובץ קונפיגורציה ל-nginx
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY ./frontend/index.html /usr/share/nginx/html/index.html
+
+# קבצי פרונטאנד (HTML/CSS)
+COPY ./frontend /usr/share/nginx/html
