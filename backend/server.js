@@ -38,7 +38,7 @@ app.get('/api/health', (req, res) => {
 const taskRoutes = require('./routes/tasks');
 app.use('/tasks', taskRoutes);
 
-// --- 7. הרצת השרת
+// --- 7. הרצת השרת.
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server is listening on port ${PORT}`);
