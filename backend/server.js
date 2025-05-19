@@ -30,15 +30,14 @@ app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from backend API!' });
 });
 
-// --- 6. ראוטים אחרים
-const taskRoutes = require('./routes/tasks');
-app.use('/tasks', taskRoutes);
-
-// 🔁 מסלול בריאות בסיסי
-app.get('/health', (req, res) => {
+// 🔁 מסלול בריאות – עכשיו תחת /api
+app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
+// --- 6. ראוטים אחרים
+const taskRoutes = require('./routes/tasks');
+app.use('/tasks', taskRoutes);
 
 // --- 7. הרצת השרת.
 const PORT = process.env.PORT || 3000;
