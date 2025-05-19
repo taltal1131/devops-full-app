@@ -1,0 +1,28 @@
+name: Live Healthcheck CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  healthcheck-live-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧪 Healthcheck - Backend (Render) with retries
+        run: |
+          MAX_RETRIES=5
+          for i in $(seq 1 $MAX_RETRIES); do
+            echo "🔄 Attempt $i of $MAX_RETRIES: Checking backend health..."
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://devops-backend-35w9.onrender.com/api/health)
+            echo "➡️ Status code: $STATUS"
+
+            if [ "$STATUS" -eq 200 ]; then
+              echo "✅ Backend healthcheck (Render) passed"
+              exit 0
+            elif [ "$STATUS" -eq 503 ]; then
+              echo "⏳ Backend might be waking up... waiting 10 seconds"
+            else
+              echo "⚠️ Unexpected status code: $
