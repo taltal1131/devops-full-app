@@ -11,12 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v3
-
       - name: 🧪 Healthcheck - Backend (Render)
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://devops-backend-35w9.onrender.com/health)
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://devops-backend-35w9.onrender.com/api/health)
           if [ "$STATUS" -ne 200 ]; then
             echo "❌ Backend healthcheck (Render) failed with status $STATUS"
             exit 1
