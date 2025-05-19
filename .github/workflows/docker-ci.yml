@@ -1,28 +1,34 @@
-name: Build and Push to Docker Hub
+name: Docker CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build-and-push:
+  build-and-healthcheck:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: ⬇️ Checkout code
+      uses: actions/checkout@v3
 
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+    - name: 🐳 Build Docker Compose services
+      run: docker-compose up -d --build
 
-      - name: Build backend image
-        run: docker build -t ${{ secrets.DOCKER_BACKEND_IMG }} ./backend
+    - name: ⏳ Wait for services to be ready
+      run: sleep 10
 
-      - name: Build logger image
-        run: docker build -t ${{ secrets.DOCKER_LOGGER_IMG }} ./logger
+    - name: 🧪 Healthcheck - Backend
+      run: |
+        STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/health)
+        if [ "$STATUS" -ne 200 ]; then
+          echo "❌ Healthcheck failed with status $STATUS"
+          exit 1
+        else
+          echo "✅ Healthcheck passed"
+        fi
 
-      - name: Push backend image
-        run: docker push ${{ secrets.DOCKER_BACKEND_IMG }}
-
-      - name: Push logger image
-        run: docker push ${{ secrets.DOCKER_LOGGER_IMG }}
+    - name: 🧹 Cleanup
+      run: docker-compose down
