@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
-app.get('/', (req, res) => {
-  res.json({
-    status: 'OK',
-    message: 'Logger microservice operational. Monitoring and logging events.',
-    service: 'logger-service',
-    version: '1.0.0'
-  });
+app.use(express.json());
+
+// ✅ מסלול בריאות
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Logger service running on port ${PORT}`);
+// שאר ה־API שלך...
+
+app.listen(port, () => {
+  console.log(`Logger service running on port ${port}`);
 });
