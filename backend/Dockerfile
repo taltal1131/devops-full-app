@@ -1,2 +1,10 @@
-FROM nginx:alpine
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+FROM node:18
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+CMD ["node", "server.js"]
