@@ -1,4 +1,4 @@
-name: Live Healthcheck CI
+name: Docker CI
 
 on:
   push:
@@ -7,16 +7,39 @@ on:
     branches: [ main ]
 
 jobs:
-  healthcheck-live-backend:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧪 Healthcheck - Backend (Render)
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build frontend Docker image
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://devops-backend-35w9.onrender.com/api/health)
-          if [ "$STATUS" -ne 200 ]; then
-            echo "❌ Backend healthcheck (Render) failed with status $STATUS"
-            exit 1
-          else
-            echo "✅ Backend healthcheck (Render) passed"
-          fi
+          docker build -t frontend-app ./frontend
+
+      - name: 🧪 Healthcheck - Backend (Render) with retries
+        run: |
+          MAX_RETRIES=5
+          for i in $(seq 1 $MAX_RETRIES); do
+            echo "🔄 Attempt $i of $MAX_RETRIES: Checking backend health..."
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://devops-backend-35w9.onrender.com/api/health)
+            echo "➡️ Status code: $STATUS"
+
+            if [ "$STATUS" -eq 200 ]; then
+              echo "✅ Backend healthcheck (Render) passed"
+              exit 0
+            elif [ "$STATUS" -eq 503 ] || [ "$STATUS" -eq 502 ]; then
+              echo "⏳ Backend might be waking up (status $STATUS)... waiting 10 seconds"
+            else
+              echo "⚠️ Unexpected status code: $STATUS"
+            fi
+
+            sleep 10
+          done
+
+          echo "❌ Backend healthcheck (Render) failed after $MAX_RETRIES attempts"
+          exit 1

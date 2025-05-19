@@ -22,8 +22,8 @@ jobs:
             if [ "$STATUS" -eq 200 ]; then
               echo "✅ Backend healthcheck (Render) passed"
               exit 0
-            elif [ "$STATUS" -eq 503 ]; then
-              echo "⏳ Backend might be waking up... waiting 10 seconds"
+            elif [ "$STATUS" -eq 503 ] || [ "$STATUS" -eq 502 ]; then
+              echo "⏳ Backend might be waking up (status $STATUS)... waiting 10 seconds"
             else
               echo "⚠️ Unexpected status code: $STATUS"
             fi
