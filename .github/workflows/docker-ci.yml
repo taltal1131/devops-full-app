@@ -1,25 +1,3 @@
-name: Docker CI
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build-and-healthcheck:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: ⬇️ Checkout code
-      uses: actions/checkout@v3
-
-    - name: 🐳 Build Docker Compose services
-      run: docker-compose up -d --build
-
-    - name: ⏳ Wait for services to be ready
-      run: sleep 10
-
     - name: 🧪 Healthcheck - Backend
       run: |
         STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/health)
@@ -28,6 +6,16 @@ jobs:
           exit 1
         else
           echo "✅ Healthcheck passed"
+        fi
+
+    - name: 🧪 Healthcheck - Logger
+      run: |
+        STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/health)
+        if [ "$STATUS" -ne 200 ]; then
+          echo "❌ Logger healthcheck failed with status $STATUS"
+          exit 1
+        else
+          echo "✅ Logger healthcheck passed"
         fi
 
     - name: 🧹 Cleanup
