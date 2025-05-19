@@ -26,11 +26,7 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// --- 5. ראוטים אחרים (routes/tasks.js)
-const taskRoutes = require('./routes/tasks');
-app.use('/tasks', taskRoutes);
-
-// --- 6. הרצת השרת
+// --- 5. הרצת השרת
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server is listening on port ${PORT}`);
