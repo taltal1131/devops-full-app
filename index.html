@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevOps Frontend</title>
+</head>
+<body>
+  <h1>Welcome to the DevOps Frontend</h1>
+  <div id="backend-response">Waiting for backend...</div>
+  <script>
+    fetch('https://devopsbackend-rgdg.onrender.com/api/hello')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('backend-response').textContent = "Backend Response: " + data.message;
+      })
+      .catch(err => {
+        console.error("Fetch error:", err);
+        document.getElementById('backend-response').textContent = "Backend Error: " + err.message;
+      });
+  </script>
+</body>
+</html>
