@@ -25,4 +25,11 @@ jobs:
             elif [ "$STATUS" -eq 503 ]; then
               echo "⏳ Backend might be waking up... waiting 10 seconds"
             else
-              echo "⚠️ Unexpected status code: $
+              echo "⚠️ Unexpected status code: $STATUS"
+            fi
+
+            sleep 10
+          done
+
+          echo "❌ Backend healthcheck (Render) failed after $MAX_RETRIES attempts"
+          exit 1
