@@ -8,10 +8,10 @@
   <h1>Welcome to the DevOps Frontend</h1>
   <div id="backend-response">Waiting for backend...</div>
   <script>
-    fetch('https://devopsbackend-rgdg.onrender.com/api/hello')
+    fetch('https://devops-backend-35w9.onrender.com/api/health')
       .then(res => res.json())
       .then(data => {
-        document.getElementById('backend-response').textContent = "Backend Response: " + data.message;
+        document.getElementById('backend-response').textContent = "Backend Response: " + data.status;
       })
       .catch(err => {
         console.error("Fetch error:", err);
