@@ -1,18 +1,16 @@
+// routes/tasks.js
 const express = require('express');
 const router = express.Router();
-const Task = require('../models/Task');
+
+// Dummy data
+const tasks = [
+  { id: 1, title: 'Learn DevOps' },
+  { id: 2, title: 'Deploy to Render' },
+];
 
 // GET /tasks
-router.get('/', async (req, res) => {
-  const tasks = await Task.find();
+router.get('/', (req, res) => {
   res.json(tasks);
-});
-
-// POST /tasks
-router.post('/', async (req, res) => {
-  const task = new Task({ title: req.body.title });
-  await task.save();
-  res.status(201).json(task);
 });
 
 module.exports = router;
